@@ -1,0 +1,188 @@
+---
+const { categories = [], brands = [] } = Astro.props;
+---
+
+<div class="rounded-2xl border border-forest/10 bg-[#FBFCF9] p-4 sm:p-5">
+    <div class="mb-4 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+            <div
+                class="flex h-8 w-8 items-center justify-center rounded-lg bg-[#E8EFE6] text-forest"
+            >
+                <svg
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    aria-hidden="true"
+                >
+                    <path d="M4 7h16M4 17h16"></path>
+                    <circle cx="9" cy="7" r="2" fill="#E8EFE6"></circle>
+                    <circle cx="15" cy="17" r="2" fill="#E8EFE6"></circle>
+                </svg>
+            </div>
+
+            <span class="text-sm font-semibold text-forest">
+                Encuentra tu favorito
+            </span>
+        </div>
+
+        <span
+            class="hidden rounded-full bg-[#E8EFE6] px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-forest/70 sm:inline-flex"
+        >
+            Nuestro catálogo
+        </span>
+    </div>
+
+    <div class="flex flex-col gap-2.5 lg:flex-row">
+        <label
+            class="group flex h-11 min-w-0 flex-1 items-center gap-3 rounded-xl border border-forest/10 bg-white px-3.5 transition-all duration-200 hover:border-forest/25 focus-within:border-forest/50 focus-within:ring-2 focus-within:ring-forest/5"
+        >
+            <svg
+                class="h-[18px] w-[18px] shrink-0 text-forest/50 transition-colors group-focus-within:text-forest"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="m20 20-4-4"></path>
+            </svg>
+
+            <input
+                id="shop-search"
+                type="search"
+                placeholder="Buscar productos..."
+                aria-label="Buscar productos"
+                autocomplete="off"
+                class="!outline-none !bg-white !border-none !shadow-none !h-[15px]"
+            />
+        </label>
+
+        <div class="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:flex">
+            {
+                brands.length > 0 && (
+                    <div class="relative">
+                        <select
+                            id="shop-brand"
+                            aria-label="Filtrar por marca"
+                            class="h-11 w-full cursor-pointer appearance-none rounded-xl border border-forest/10 bg-white py-2 pl-3.5 pr-9 text-[13px] text-forest outline-none transition-all hover:border-forest/25 focus:border-forest/50 lg:w-[180px]"
+                        >
+                            <option value="Todos">Todas las marcas</option>
+
+                            {brands.map((brand: any) => (
+                                <option value={brand}>{brand}</option>
+                            ))}
+                        </select>
+
+                        <svg
+                            class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-forest/50"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="m6 9 6 6 6-6"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </div>
+                )
+            }
+
+            <!-- ORDENAMIENTO -->
+            <div class="relative">
+                <select
+                    id="shop-sort"
+                    aria-label="Ordenar productos"
+                    class="h-11 w-full cursor-pointer appearance-none rounded-xl border border-forest/10 bg-white py-2 pl-3.5 pr-9 text-[13px] text-forest outline-none transition-all hover:border-forest/25 focus:border-forest/50 lg:w-[180px]"
+                >
+                    <option value="default">Recomendados</option>
+                    <option value="name">Nombre: A - Z</option>
+                    <option value="price-asc"> Menor precio </option>
+                    <option value="price-desc"> Mayor precio </option>
+                </select>
+
+                <svg
+                    class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-forest/50"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="m6 9 6 6 6-6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="mt-4 flex flex-col gap-3 border-t border-forest/10 pt-4 sm:flex-row sm:items-center"
+    >
+        <span
+            class="shrink-0 text-[11px] font-semibold uppercase tracking-wider text-forest/60"
+        >
+            Categorías
+        </span>
+
+        <div
+            class="shop-categories -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0"
+            role="group"
+            aria-label="Filtrar por categoría"
+        >
+            <button
+                type="button"
+                data-shop-category="Todos"
+                aria-pressed="true"
+                class="shop-filter shrink-0 rounded-full border border-forest/10 bg-white px-3.5 py-1.5 text-xs font-medium text-forest/75 transition-all duration-200 hover:border-forest/40 hover:bg-[#EDF1E6] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+            >
+                Todos
+            </button>
+
+            {
+                categories.map((category: any) => (
+                    <button
+                        type="button"
+                        data-shop-category={category}
+                        aria-pressed="false"
+                        class="shop-filter shrink-0 rounded-full border border-forest/10 bg-white px-3.5 py-1.5 text-xs font-medium text-forest/75 transition-all duration-200 hover:border-forest/40 hover:bg-[#EDF1E6] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+                    >
+                        {category}
+                    </button>
+                ))
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .shop-filter[aria-pressed="true"] {
+        background-color: #294b3b;
+        border-color: #294b3b;
+        color: white;
+        box-shadow: 0 3px 8px rgb(41 75 59 / 10%);
+    }
+
+    .shop-filter[aria-pressed="true"]:hover {
+        background-color: #365e4b;
+    }
+
+    .shop-categories {
+        scrollbar-width: none;
+    }
+
+    .shop-categories::-webkit-scrollbar {
+        display: none;
+    }
+</style>

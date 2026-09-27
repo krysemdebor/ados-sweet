@@ -1,0 +1,504 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const principios = [
+    {
+        numero: "01",
+        titulo: "Ciencia antes que marketing",
+        texto: "Investigamos, probamos y aprendemos antes de comunicar los beneficios de nuestras formulaciones.",
+    },
+    {
+        numero: "02",
+        titulo: "Transparencia antes que promesas",
+        texto: "Queremos que conozcas qué hacemos, cómo desarrollamos nuestros alimentos y qué contiene cada producto.",
+    },
+    {
+        numero: "03",
+        titulo: "Evidencia antes que opiniones",
+        texto: "Buscamos sustento para desarrollar nuestras recetas y continuar mejorándolas.",
+    },
+    {
+        numero: "04",
+        titulo: "Sabor antes que obligación",
+        texto: "Creemos que elegir mejor también puede ser una experiencia rica, agradable y disfrutable.",
+    },
+    {
+        numero: "05",
+        titulo: "Personas antes que productos",
+        texto: "Cada alimento que desarrollamos parte de necesidades reales de personas y familias.",
+    },
+];
+
+const categorias = [
+    {
+        nombre: "Mermeladas",
+        descripcion:
+            "Preparaciones artesanales donde la fruta es protagonista, desarrolladas para conservar y disfrutar su sabor.",
+    },
+    {
+        nombre: "Granolas",
+        descripcion:
+            "Combinaciones artesanales de cereales, semillas e ingredientes seleccionados para acompañar diferentes momentos del día.",
+    },
+    {
+        nombre: "Mantequillas",
+        descripcion:
+            "Preparaciones elaboradas con ingredientes reconocibles, cuidando especialmente el sabor y la textura.",
+    },
+    {
+        nombre: "Helados",
+        descripcion:
+            "Recetas artesanales que combinan fruta e ingredientes seleccionados para crear sabores cremosos, intensos y memorables.",
+    },
+    {
+        nombre: "Postres",
+        descripcion:
+            "Creaciones artesanales que reúnen sabor, creatividad y dedicación para hacer especiales distintos momentos.",
+    },
+];
+---
+
+<Layout title="Nosotros · La esencia de Ados Sweet">
+    <!-- ====================================================== -->
+    <!-- HERO -->
+    <!-- ====================================================== -->
+
+    <section class="wrap pt-8 pb-16 lg:pt-10 lg:pb-20">
+        <div
+            class="overflow-hidden rounded-[28px]
+                   shadow-[0_20px_60px_rgba(31,64,48,0.10)]"
+        >
+            <img
+                src="/images/nosotros.jpeg"
+                alt="Ados Sweet - alimentos artesanales y funcionales"
+                class="block h-auto w-full"
+                width="1672"
+                height="941"
+                loading="eager"
+                fetchpriority="high"
+            />
+        </div>
+
+        <!-- Presentación -->
+        <div
+            class="mx-auto mt-12 grid max-w-6xl gap-8
+                   md:grid-cols-[0.85fr_1.15fr]
+                   md:gap-14
+                   lg:mt-16 lg:gap-20"
+        >
+            <div>
+                <p class="eyebrow mb-4">Nuestra esencia</p>
+
+                <h1 class="max-w-xl">
+                    Placer que también
+
+                    <em class="block text-coral"> te cuida. </em>
+                </h1>
+            </div>
+
+            <div class="flex flex-col justify-center">
+                <p class="text-lg leading-8 text-stone-600">
+                    Creamos alimentos artesanales y funcionales buscando unir
+                    placer, calidad y bienestar.
+                </p>
+
+                <p class="mt-5 leading-7 text-stone-600">
+                    Trabajamos con ingredientes reconocibles, procesos cuidados
+                    y una idea que acompaña cada decisión: cuando una persona
+                    confía en nuestros alimentos, la calidad debe estar siempre
+                    primero.
+                </p>
+
+                <a
+                    href="#historia"
+                    class="mt-7 inline-flex w-fit items-center gap-2
+                           border-b border-forest pb-1
+                           text-sm font-medium text-forest
+                           transition-all duration-300
+                           hover:gap-3 hover:opacity-70"
+                >
+                    Conoce nuestra historia
+
+                    <span aria-hidden="true"> ↓ </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- ¿QUÉ NOS HACE DIFERENTES? -->
+    <!-- ====================================================== -->
+
+    <section class="bg-[#edf1e6] py-14 md:py-16">
+        <div
+            class="wrap grid items-center gap-10
+                   md:grid-cols-[0.75fr_1.25fr]"
+        >
+            <div>
+                <p class="eyebrow mb-4">Ados Sweet</p>
+
+                <h2>
+                    ¿Qué nos hace<br />
+                    diferentes?
+                </h2>
+            </div>
+
+            <div class="max-w-2xl">
+                <p class="text-lg leading-8 text-stone-700">
+                    No buscamos crear alimentos únicamente porque sean
+                    diferentes. Queremos desarrollar alternativas que tengan
+                    sentido para las personas que las eligen.
+                </p>
+
+                <p class="mt-5 leading-7 text-stone-600">
+                    Por eso buscamos equilibrar sabor, calidad, bienestar e
+                    innovación mientras mantenemos el carácter artesanal que dio
+                    origen a nuestra marca.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- HISTORIA -->
+    <!-- ====================================================== -->
+
+    <section
+        id="historia"
+        class="wrap grid scroll-mt-24 gap-10
+               border-b border-forest/15 py-16
+               md:grid-cols-[0.7fr_1.3fr]
+               lg:py-20"
+    >
+        <div>
+            <p class="eyebrow mb-4">Cómo comenzó todo</p>
+
+            <h2>
+                Nuestra<br />
+                historia.
+            </h2>
+        </div>
+
+        <div class="max-w-3xl space-y-5 leading-7 text-stone-600">
+            <p>
+                Ados Sweet nació de una búsqueda familiar: encontrar
+                alternativas que permitieran disfrutar del sabor sin dejar de
+                prestar atención al bienestar.
+            </p>
+
+            <p>
+                Esa necesidad fue convirtiéndose en una manera diferente de
+                entender la alimentación y en el deseo de crear productos
+                pensados para personas reales y necesidades reales.
+            </p>
+
+            <p>
+                La experimentación, la investigación y el aprendizaje constante
+                han acompañado desde entonces el desarrollo de nuestras recetas.
+            </p>
+
+            <p>
+                Hoy queremos seguir creciendo como una empresa peruana enfocada
+                en investigación e innovación en alimentos funcionales y acercar
+                nuevas alternativas a más familias.
+            </p>
+        </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- MISIÓN Y VISIÓN -->
+    <!-- ====================================================== -->
+
+    <section class="wrap py-16 lg:py-20">
+        <div class="grid gap-6 md:grid-cols-2">
+            <!-- MISIÓN -->
+            <article
+                class="flex min-h-[330px] flex-col justify-between
+                       rounded-[30px] bg-[#edf1e6]
+                       p-8 md:p-10 lg:p-12"
+            >
+                <div>
+                    <span class="eyebrow text-forest/60"> 01 </span>
+
+                    <p class="eyebrow mt-4">Lo que nos mueve</p>
+
+                    <h2 class="mt-3 text-3xl md:text-4xl">Nuestra misión.</h2>
+                </div>
+
+                <p class="mt-8 leading-7 text-stone-700">
+                    Crear alimentos artesanales y funcionales que integren
+                    sabor, calidad y bienestar mediante ingredientes
+                    seleccionados y procesos responsables.
+                </p>
+            </article>
+
+            <!-- VISIÓN -->
+            <article
+                class="flex min-h-[330px] flex-col justify-between
+                       rounded-[30px] bg-[#f9e8df]
+                       p-8 md:p-10 lg:p-12"
+            >
+                <div>
+                    <span class="eyebrow text-forest/60"> 02 </span>
+
+                    <p class="eyebrow mt-4">Hacia dónde vamos</p>
+
+                    <h2 class="mt-3 text-3xl md:text-4xl">Nuestra visión.</h2>
+                </div>
+
+                <p class="mt-8 leading-7 text-stone-700">
+                    Crecer como una empresa peruana referente en investigación,
+                    innovación y desarrollo de alimentos funcionales, sin perder
+                    el placer de disfrutar algo rico.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- FILOSOFÍA -->
+    <!-- ====================================================== -->
+
+    <section
+        id="filosofia"
+        class="scroll-mt-24 bg-forest py-16 text-white lg:py-20"
+    >
+        <div
+            class="wrap grid gap-10
+                   md:grid-cols-[0.8fr_1.2fr]
+                   md:items-center"
+        >
+            <div>
+                <p class="eyebrow mb-4 text-white/60">Nuestra filosofía</p>
+
+                <h2 class="text-white">
+                    La calidad<br />
+                    no es negociable.
+                </h2>
+            </div>
+
+            <div>
+                <p class="text-lg leading-8 text-white/90">
+                    Cuando desarrollamos una receta pensamos primero en la
+                    persona y la familia que confiarán en nosotros.
+                </p>
+
+                <p class="mt-5 leading-7 text-white/70">
+                    Buscamos mantener un equilibrio entre innovación, seguridad,
+                    calidad, sabor y accesibilidad, comunicando nuestros
+                    productos con responsabilidad y transparencia.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- PRINCIPIOS -->
+    <!-- ====================================================== -->
+
+    <section class="wrap py-16 lg:py-20">
+        <div class="max-w-3xl">
+            <p class="eyebrow mb-4">Lo que guía nuestras decisiones</p>
+
+            <h2>Nuestros principios.</h2>
+
+            <p class="mt-5 max-w-2xl leading-7 text-stone-600">
+                Son las ideas que acompañan el desarrollo de nuestras recetas y
+                nuestra forma de entender la alimentación.
+            </p>
+        </div>
+
+        <div
+            class="mt-10 grid gap-5
+                   md:grid-cols-2
+                   lg:grid-cols-3"
+        >
+            {
+                principios.map((principio, index) => (
+                    <article
+                        class:list={[
+                            "group rounded-[24px] border border-forest/15 p-7 transition-all duration-300",
+                            "hover:-translate-y-1 hover:bg-[#edf1e6] hover:shadow-lg",
+                            index === principios.length - 1
+                                ? "md:col-span-2 lg:col-span-1"
+                                : "",
+                        ]}
+                    >
+                        <span class="eyebrow text-forest/50">
+                            {principio.numero}
+                        </span>
+
+                        <h3 class="mt-5 text-2xl leading-tight">
+                            {principio.titulo}
+                        </h3>
+
+                        <p class="mt-4 leading-7 text-stone-600">
+                            {principio.texto}
+                        </p>
+                    </article>
+                ))
+            }
+        </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- PARA QUIÉN CREAMOS -->
+    <!-- ====================================================== -->
+
+    <section class="bg-[#eee8d7] py-16 lg:py-20">
+        <div
+            class="wrap grid gap-10
+                   md:grid-cols-[0.8fr_1.2fr]"
+        >
+            <div>
+                <p class="eyebrow mb-4">¿Para quién creamos?</p>
+
+                <h2>
+                    Más alternativas.<br />
+                    El mismo placer.
+                </h2>
+            </div>
+
+            <div class="max-w-2xl">
+                <p class="text-lg leading-8 text-stone-700">
+                    Pensamos en personas y familias que buscan nuevas
+                    alternativas de alimentación.
+                </p>
+
+                <p class="mt-5 leading-7 text-stone-600">
+                    Personas con necesidades nutricionales específicas,
+                    restricciones alimentarias o simplemente quienes desean
+                    conocer mejor aquello que llevan a su mesa.
+                </p>
+
+                <p class="mt-5 font-medium text-forest">
+                    Queremos ampliar las posibilidades sin limitar el disfrute.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- PRODUCTOS -->
+    <!-- ====================================================== -->
+
+    <section class="wrap py-16 lg:py-20">
+        <div class="max-w-3xl">
+            <p class="eyebrow mb-4">Nuestros productos</p>
+
+            <h2>
+                Diferentes formas<br />
+                de disfrutar.
+            </h2>
+
+            <p class="mt-5 max-w-2xl leading-7 text-stone-600">
+                Desarrollamos alimentos artesanales y funcionales para distintos
+                momentos, manteniendo nuestra filosofía de calidad, cuidado y
+                propósito.
+            </p>
+        </div>
+
+        <div
+            class="mt-12 grid gap-x-8 gap-y-10
+                   sm:grid-cols-2
+                   lg:grid-cols-3"
+        >
+            {
+                categorias.map((categoria, index) => (
+                    <article class="group border-t border-forest/20 pt-6">
+                        <div class="flex items-start justify-between gap-5">
+                            <h3 class="text-2xl">{categoria.nombre}</h3>
+
+                            <span class="text-xs text-forest/40">
+                                {String(index + 1).padStart(2, "0")}
+                            </span>
+                        </div>
+
+                        <p class="mt-4 leading-7 text-stone-600">
+                            {categoria.descripcion}
+                        </p>
+                    </article>
+                ))
+            }
+        </div>
+
+        <div class="mt-12">
+            <a href="/tienda/" class="btn">
+                Explorar nuestros productos
+                <span aria-hidden="true"> ↗ </span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- COMPROMISO -->
+    <!-- ====================================================== -->
+
+    <section class="wrap pb-16 lg:pb-24">
+        <div
+            class="relative overflow-hidden rounded-[32px]
+                   bg-[#f9e8df]
+                   px-7 py-14
+                   text-center
+                   sm:px-10
+                   md:py-20"
+        >
+            <!-- Decoración -->
+            <div
+                class="absolute -left-16 -top-16
+                       size-48 rounded-full
+                       bg-white/25 blur-2xl"
+            >
+            </div>
+
+            <div
+                class="absolute -bottom-20 -right-10
+                       size-56 rounded-full
+                       bg-coral/10 blur-3xl"
+            >
+            </div>
+
+            <div class="relative mx-auto max-w-3xl">
+                <p class="eyebrow mb-4">Nuestro compromiso</p>
+
+                <h2>
+                    Seguir aprendiendo.<br />
+                    Seguir creando.
+                </h2>
+
+                <p
+                    class="mx-auto mt-6 max-w-2xl
+                           leading-7 text-stone-600"
+                >
+                    Innovar para nosotros significa encontrar mejores maneras de
+                    preparar y disfrutar los alimentos, cuidando cada etapa sin
+                    abandonar nuestra esencia artesanal.
+                </p>
+
+                <div
+                    class="mx-auto my-9
+                           h-px w-20
+                           bg-forest/20"
+                >
+                </div>
+
+                <p
+                    class="serif text-2xl leading-snug
+                           text-forest
+                           md:text-3xl"
+                >
+                    Alimentos con propósito.
+
+                    <em class="mt-1 block text-coral">
+                        Para personas reales.
+                    </em>
+                </p>
+
+                <a href="/tienda/" class="btn mt-8">
+                    Conoce nuestros productos
+                    <span aria-hidden="true"> ↗ </span>
+                </a>
+            </div>
+        </div>
+    </section>
+</Layout>

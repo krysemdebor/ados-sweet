@@ -1,0 +1,313 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Product from "../components/Product.astro";
+import ShopFilters from "../components/ShopFilters.astro";
+
+import { products } from "../data/products.js";
+
+const catalog = products.map((product: any, index: number) => {
+    const rawCategory = product.category ?? product.categoria;
+
+    const category =
+        typeof rawCategory === "string"
+            ? rawCategory
+            : (rawCategory?.name ?? "Otros");
+
+    const brand = product.brand ?? product.marca ?? "";
+
+    const rawPrice = product.price ?? product.precio;
+
+    const parsedPrice =
+        typeof rawPrice === "number"
+            ? rawPrice
+            : rawPrice == null
+              ? null
+              : Number(
+                    String(rawPrice)
+                        .replace(/[^\d.,]/g, "")
+                        .replace(",", "."),
+                );
+
+    const price =
+        parsedPrice !== null && Number.isFinite(parsedPrice)
+            ? parsedPrice
+            : null;
+
+    return {
+        product,
+        index,
+        name: product.name ?? product.nombre ?? product.title ?? "",
+        description: product.description ?? product.descripcion ?? "",
+        category,
+        brand: String(brand),
+        price,
+    };
+});
+
+const categories = [...new Set(catalog.map((item) => item.category))].sort(
+    (a, b) => a.localeCompare(b, "es"),
+);
+
+const brands = [...new Set(catalog.map((item) => item.brand).filter(Boolean))];
+---
+
+<Layout title="Tienda · Ados Sweet">
+    <main>
+        <section id="catalogo" class="wrap scroll-mt-12 py-6" data-shop-root>
+            <ShopFilters categories={categories} brands={brands} />
+
+            <div class="flex flex-wrap items-center justify-between gap-4 my-6">
+                <p
+                    id="shop-counter"
+                    class="text-sm text-stone-500"
+                    aria-live="polite"
+                >
+                    Mostrando {catalog.length} productos
+                </p>
+
+                <button
+                    id="shop-reset"
+                    type="button"
+                    class="hidden border-b border-forest pb-1 text-sm text-forest transition hover:text-coral"
+                >
+                    Limpiar filtros ↗
+                </button>
+            </div>
+
+            <div
+                id="shop-grid"
+                class="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-3"
+            >
+                {
+                    catalog.map((item) => (
+                        <div
+                            class="shop-product min-w-0"
+                            data-name={item.name}
+                            data-description={item.description}
+                            data-category={item.category}
+                            data-brand={item.brand}
+                            data-price={item.price ?? ""}
+                            data-index={item.index}
+                        >
+                            <Product product={item.product} />
+                        </div>
+                    ))
+                }
+            </div>
+
+            <div
+                id="shop-empty"
+                class="hidden rounded-3xl bg-[#edf1e6] px-6 py-20 text-center"
+            >
+                <div
+                    class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-white text-4xl text-forest"
+                >
+                    ♡
+                </div>
+
+                <h3 class="text-2xl md:text-3xl">
+                    No encontramos ese producto.
+                </h3>
+
+                <p class="mx-auto mt-4 max-w-md text-stone-600">
+                    Prueba con otra palabra o explora nuestras diferentes
+                    categorías.
+                </p>
+
+                <button id="shop-empty-reset" type="button" class="btn mt-7">
+                    Ver todos los productos ↗
+                </button>
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<script>
+    function initializeShop() {
+        const root = document.querySelector<HTMLElement>("[data-shop-root]");
+
+        if (!root || root.dataset.initialized === "true") {
+            return;
+        }
+
+        root.dataset.initialized = "true";
+
+        const search = root.querySelector<HTMLInputElement>("#shop-search");
+
+        const sort = root.querySelector<HTMLSelectElement>("#shop-sort");
+
+        const brand = root.querySelector<HTMLSelectElement>("#shop-brand");
+
+        const grid = root.querySelector<HTMLElement>("#shop-grid");
+
+        const counter = root.querySelector<HTMLElement>("#shop-counter");
+
+        const empty = root.querySelector<HTMLElement>("#shop-empty");
+
+        const reset = root.querySelector<HTMLButtonElement>("#shop-reset");
+
+        const emptyReset =
+            root.querySelector<HTMLButtonElement>("#shop-empty-reset");
+
+        const categoryButtons = [
+            ...root.querySelectorAll<HTMLButtonElement>("[data-shop-category]"),
+        ];
+
+        const items = [...root.querySelectorAll<HTMLElement>(".shop-product")];
+
+        let selectedCategory = "Todos";
+
+        const normalize = (text: string) =>
+            text
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .trim();
+
+        function applyFilters() {
+            const query = normalize(search?.value ?? "");
+
+            const selectedBrand = brand?.value ?? "Todos";
+
+            let count = 0;
+
+            items.forEach((item) => {
+                const itemName = item.dataset.name ?? "";
+
+                const itemDescription = item.dataset.description ?? "";
+
+                const itemCategory = item.dataset.category ?? "";
+
+                const itemBrand = item.dataset.brand ?? "";
+
+                const searchableText = normalize(
+                    [itemName, itemDescription, itemCategory, itemBrand].join(
+                        " ",
+                    ),
+                );
+
+                const matchesSearch = searchableText.includes(query);
+
+                const matchesCategory =
+                    selectedCategory === "Todos" ||
+                    itemCategory === selectedCategory;
+
+                const matchesBrand =
+                    selectedBrand === "Todos" || itemBrand === selectedBrand;
+
+                const visible =
+                    matchesSearch && matchesCategory && matchesBrand;
+
+                item.classList.toggle("hidden", !visible);
+
+                if (visible) count++;
+            });
+
+            if (counter) {
+                counter.textContent =
+                    `Mostrando ${count} ` +
+                    (count === 1 ? "producto" : "productos");
+            }
+
+            empty?.classList.toggle("hidden", count !== 0);
+
+            const hasFilters =
+                query !== "" ||
+                selectedCategory !== "Todos" ||
+                selectedBrand !== "Todos";
+
+            reset?.classList.toggle("hidden", !hasFilters);
+        }
+
+        function applySort() {
+            if (!grid) return;
+
+            const mode = sort?.value ?? "default";
+
+            const sorted = [...items].sort((a, b) => {
+                const nameA = a.dataset.name ?? "";
+
+                const nameB = b.dataset.name ?? "";
+
+                const rawPriceA = a.dataset.price ?? "";
+
+                const rawPriceB = b.dataset.price ?? "";
+
+                const priceA = rawPriceA === "" ? Infinity : Number(rawPriceA);
+
+                const priceB = rawPriceB === "" ? Infinity : Number(rawPriceB);
+
+                if (mode === "name") {
+                    return nameA.localeCompare(nameB, "es");
+                }
+
+                if (mode === "price-asc") {
+                    return priceA - priceB || 0;
+                }
+
+                if (mode === "price-desc") {
+                    if (priceA === Infinity || priceB === Infinity) {
+                        return (
+                            Number(priceA === Infinity) -
+                            Number(priceB === Infinity)
+                        );
+                    }
+
+                    return priceB - priceA;
+                }
+
+                return (
+                    Number(a.dataset.index ?? 0) - Number(b.dataset.index ?? 0)
+                );
+            });
+
+            sorted.forEach((item) => {
+                grid.appendChild(item);
+            });
+        }
+
+        function clearFilters() {
+            selectedCategory = "Todos";
+
+            if (search) search.value = "";
+
+            if (brand) brand.value = "Todos";
+
+            if (sort) sort.value = "default";
+
+            categoryButtons.forEach((button) => {
+                button.setAttribute(
+                    "aria-pressed",
+                    String(button.dataset.shopCategory === "Todos"),
+                );
+            });
+
+            applySort();
+            applyFilters();
+        }
+
+        search?.addEventListener("input", applyFilters);
+
+        categoryButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                selectedCategory = button.dataset.shopCategory ?? "Todos";
+
+                categoryButtons.forEach((btn) => {
+                    btn.setAttribute("aria-pressed", String(btn === button));
+                });
+
+                applyFilters();
+            });
+        });
+
+        brand?.addEventListener("change", applyFilters);
+        sort?.addEventListener("change", applySort);
+        reset?.addEventListener("click", clearFilters);
+        emptyReset?.addEventListener("click", clearFilters);
+
+        applyFilters();
+    }
+
+    initializeShop();
+    document.addEventListener("astro:page-load", initializeShop);
+</script>

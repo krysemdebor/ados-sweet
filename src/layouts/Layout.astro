@@ -1,0 +1,387 @@
+---
+import "../styles/global.css";
+const { title = "Ados Sweet · Placer que también te cuida" } = Astro.props;
+const links = [
+    ["/", "Inicio"],
+    ["/nosotros/", "Nosotros"],
+    ["/blog/", "Blog"],
+    ["/tienda/", "Tienda"],
+    ["/contactos/", "Contactos"],
+];
+---
+
+<!doctype html>
+<html lang="es">
+    <head
+        ><meta charset="UTF-8" /><meta
+            name="viewport"
+            content="width=device-width,initial-scale=1"
+        />
+        <meta
+            name="description"
+            content="Descubre Ados Sweet: granolas, helados y untables artesanales. Ingredientes reales, momentos para disfrutar."
+        /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css" integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg==" crossorigin="anonymous" referrerpolicy="no-referrer"><title>{title}</title></head
+    ><body>
+        <a href="#contenido" class="sr-only focus:not-sr-only"
+            >Saltar al contenido</a
+        >
+        <div
+            class="bg-forest text-white text-center py-2 text-xs tracking-widest"
+        >
+            INGREDIENTES REALES. PEQUEÑOS MOMENTOS DE FELICIDAD.
+        </div>
+        <header class="wrap flex items-center justify-between py-6 gap-6">
+            <a href="/" class="logo" aria-label="Ados Sweet inicio"
+                ><b>Ados</b><em>Sweet</em></a
+            ><nav aria-label="Principal" class="hidden md:flex gap-9 text-sm">
+                {
+                    links.map(([url, label]) => (
+                        <a
+                            class:list={[
+                                "py-2",
+                                { "nav-active": Astro.url.pathname === url },
+                            ]}
+                            href={url}
+                        >
+                            {label}
+                        </a>
+                    ))
+                }
+            </nav><div class="flex gap-4 items-center">
+                <button
+                    id="cart-open"
+                    class="flex items-center gap-2 text-sm"
+                    aria-label="Abrir carrito"
+                    ><svg
+                        width="23"
+                        height="25"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        ><path d="M5 7h14l1 15H4L5 7Z"></path><path
+                            d="M8 8V5a4 4 0 0 1 8 0v3"></path></svg
+                    ><span class="hidden sm:inline">Mi carrito</span><span
+                        id="cart-count"
+                        class="bg-forest text-white rounded-full px-2 py-1 text-xs"
+                        >0</span
+                    ></button
+                ><button
+                    id="menu-toggle"
+                    aria-expanded="false"
+                    aria-controls="mobile-nav"
+                    class="md:hidden text-2xl"
+                    aria-label="Abrir menú">☰</button
+                >
+            </div>
+        </header>
+        <nav
+            id="mobile-nav"
+            aria-label="Navegación móvil"
+            hidden
+            class="wrap pb-5"
+        >
+            {
+                links.map(([url, label]) => (
+                    <a class="block py-3 border-b border-forest/10" href={url}>
+                        {label}
+                    </a>
+                ))
+            }
+        </nav>
+        <main id="contenido"><slot /></main>
+        <footer class="mt-20 bg-forest py-12 text-white">
+            <div class="wrap grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+                <!-- MARCA -->
+                <div>
+                    <div class="serif text-3xl">Ados Sweet</div>
+
+                    <p class="mt-3 max-w-xs text-sm leading-6 text-white/75">
+                        Alimentos artesanales y funcionales para disfrutar y
+                        cuidar de ti.
+                    </p>
+
+                    <!-- REDES SOCIALES -->
+                    <div class="mt-6 flex items-center gap-3">
+                        <!-- Instagram -->
+                        <a
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Instagram de Ados Sweet"
+                            class="flex size-10 items-center justify-center rounded-full
+                           border border-white/20 text-white
+                           transition-all duration-300
+                           hover:-translate-y-1 hover:bg-white hover:text-forest"
+                        >
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </a>
+
+                        <!-- Facebook -->
+                        <a
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Facebook de Ados Sweet"
+                            class="flex size-10 items-center justify-center rounded-full
+                           border border-white/20 text-white
+                           transition-all duration-300
+                           hover:-translate-y-1 hover:bg-white hover:text-forest"
+                        >
+                            <i class="fa-brands fa-facebook-f text-lg"></i>
+                        </a>
+
+                        <!-- TikTok -->
+                        <a
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="TikTok de Ados Sweet"
+                            class="flex size-10 items-center justify-center rounded-full
+                           border border-white/20 text-white
+                           transition-all duration-300
+                           hover:-translate-y-1 hover:bg-white hover:text-forest"
+                        >
+                            <i class="fa-brands fa-tiktok text-lg"></i>
+                        </a>
+
+                        <!-- WhatsApp -->
+                        <a
+                            href="/contactos/"
+                            aria-label="WhatsApp de Ados Sweet"
+                            class="flex size-10 items-center justify-center rounded-full
+                           border border-white/20 text-white
+                           transition-all duration-300
+                           hover:-translate-y-1 hover:bg-white hover:text-forest"
+                        >
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- NAVEGACIÓN -->
+                <div>
+                    <p class="eyebrow mb-4 text-white/60">
+                        Explora nuestra casa
+                    </p>
+
+                    <div class="flex flex-col items-start gap-3 text-sm">
+                        {
+                            links.map(([url, label]) => (
+                                <a
+                                    href={url}
+                                    class="transition-opacity hover:opacity-60"
+                                >
+                                    {label}
+                                </a>
+                            ))
+                        }
+                    </div>
+                </div>
+
+                <!-- CONTACTO -->
+                <div>
+                    <p class="eyebrow mb-4 text-white/60">Contáctanos</p>
+
+                    <div class="space-y-3 text-sm text-white/75">
+                        <a
+                            href="/contactos/"
+                            class="flex items-center gap-2 transition-colors hover:text-white"
+                        >
+                            <i class="fa-brands fa-whatsapp w-4"></i>
+                            WhatsApp
+                        </a>
+
+                        <a
+                            href="/contactos/"
+                            class="flex items-center gap-2 transition-colors hover:text-white"
+                        >
+                            <i class="fa-regular fa-envelope w-4"></i>
+                            Correo electrónico
+                        </a>
+
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot w-4"></i>
+                            Lima, Perú
+                        </p>
+                    </div>
+                </div>
+
+                <!-- AYUDA / LEGAL -->
+                <div>
+                    <p class="eyebrow mb-4 text-white/60">Información</p>
+
+                    <div class="flex flex-col items-start gap-3 text-sm">
+                        <a
+                            href="/nosotros/"
+                            class="transition-opacity hover:opacity-60"
+                        >
+                            Conoce Ados Sweet
+                        </a>
+
+                        <a
+                            href="/nosotros/#historia"
+                            class="transition-opacity hover:opacity-60"
+                        >
+                            Nuestra historia
+                        </a>
+
+                        <a
+                            href="/nosotros/#filosofia"
+                            class="transition-opacity hover:opacity-60"
+                        >
+                            Nuestra filosofía
+                        </a>
+
+                        <!-- LIBRO DE RECLAMACIONES -->
+                        <a
+                            href="/libro-de-reclamaciones/"
+                            class="mt-2 flex items-center gap-2
+                           border-b border-white/40 pb-1
+                           font-medium transition-colors
+                           hover:border-white"
+                        >
+                            <i class="fa-solid fa-book-open text-sm"></i>
+                            Libro de Reclamaciones
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PARTE INFERIOR -->
+            <div
+                class="wrap mt-10 flex flex-col gap-4
+               border-t border-white/20 pt-5
+               text-xs text-white/60
+               sm:flex-row sm:items-center sm:justify-between"
+            >
+                <p>
+                    © {new Date().getFullYear()} Ados Sweet. Todos los derechos reservados.
+                </p>
+
+                <p>Lima, Perú</p>
+            </div>
+        </footer>
+        <dialog id="cart-dialog" aria-labelledby="cart-title">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="cart-title" class="text-3xl">Tu carrito</h2><button
+                    id="cart-close"
+                    aria-label="Cerrar carrito"
+                    class="text-3xl">×</button
+                >
+            </div><div id="cart-items"></div><div
+                class="flex justify-between text-lg font-bold mt-6"
+            >
+                <span>Subtotal</span><span id="cart-total">S/ 0.00</span>
+            </div><p class="text-sm mt-3">
+                Precios referenciales. Envío no incluido. Esta tienda todavía no
+                recibe pagos ni pedidos.
+            </p><button id="cart-clear" class="underline mt-4 text-sm"
+                >Vaciar carrito</button
+            >
+        </dialog><div
+            id="toast"
+            role="status"
+            class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-forest text-white px-6 py-3 rounded-full shadow-xl z-50"
+            hidden
+        >
+        </div>
+        <script>
+            import { products } from "../data/products.js";
+            const key = "ados-sweet-cart-v1";
+            let cart = {};
+            try {
+                const saved = JSON.parse(localStorage.getItem(key) || "{}");
+                for (const p of products) {
+                    const q = saved?.[p.id];
+                    if (Number.isInteger(q) && q > 0 && q <= 99) cart[p.id] = q;
+                }
+            } catch {}
+            const dialog = document.querySelector("#cart-dialog");
+            const money = (n) =>
+                new Intl.NumberFormat("es-PE", {
+                    style: "currency",
+                    currency: "PEN",
+                }).format(n);
+            function render() {
+                let total = 0,
+                    count = 0;
+                const container = document.querySelector("#cart-items");
+                container.replaceChildren();
+                for (const p of products) {
+                    const q = cart[p.id] || 0;
+                    if (!q) continue;
+                    total += q * p.price;
+                    count += q;
+                    const row = document.createElement("div");
+                    row.className = "cart-row";
+                    row.innerHTML = `<div><strong>${p.name}</strong><div class="text-sm">${p.size} · ${money(p.price)}</div></div><div class="flex items-center gap-3"><button class="qty" data-id="${p.id}" data-change="-1" aria-label="Quitar una unidad de ${p.name}">−</button><span>${q}</span><button class="qty" data-id="${p.id}" data-change="1" aria-label="Agregar una unidad de ${p.name}" ${q >= 99 ? "disabled" : ""}>+</button></div><button class="text-sm underline text-left" data-remove="${p.id}">Eliminar</button>`;
+                    container.append(row);
+                }
+                if (!count)
+                    container.innerHTML =
+                        '<p class="py-8">Tu carrito está esperando algo rico. Explora la tienda y elige tu favorito.</p>';
+                document.querySelector("#cart-count").textContent =
+                    String(count);
+                document.querySelector("#cart-total").textContent =
+                    money(total);
+                try {
+                    localStorage.setItem(key, JSON.stringify(cart));
+                } catch {}
+            }
+            let timer;
+            document.addEventListener("click", (e) => {
+                const el = e.target.closest("button");
+                if (!el) return;
+                if (el.dataset.add) {
+                    const id = el.dataset.add;
+                    cart[id] = Math.min(99, (cart[id] || 0) + 1);
+                    render();
+                    const toast = document.querySelector("#toast");
+                    toast.textContent = "Producto agregado a tu carrito";
+                    toast.hidden = false;
+                    clearTimeout(timer);
+                    timer = setTimeout(() => (toast.hidden = true), 2400);
+                }
+                if (el.dataset.change) {
+                    const id = el.dataset.id;
+                    cart[id] = Math.max(
+                        0,
+                        Math.min(
+                            99,
+                            (cart[id] || 0) + Number(el.dataset.change),
+                        ),
+                    );
+                    render();
+                }
+                if (el.dataset.remove) {
+                    delete cart[el.dataset.remove];
+                    render();
+                }
+            });
+            document
+                .querySelector("#cart-open")
+                .addEventListener("click", () => dialog.showModal());
+            document
+                .querySelector("#cart-close")
+                .addEventListener("click", () => dialog.close());
+            document
+                .querySelector("#cart-clear")
+                .addEventListener("click", () => {
+                    cart = {};
+                    render();
+                });
+            document
+                .querySelector("#menu-toggle")
+                .addEventListener("click", (e) => {
+                    const nav = document.querySelector("#mobile-nav");
+                    nav.hidden = !nav.hidden;
+                    e.currentTarget.setAttribute(
+                        "aria-expanded",
+                        String(!nav.hidden),
+                    );
+                });
+            render();
+        </script></body
+    >
+</html>

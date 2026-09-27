@@ -1,0 +1,6 @@
+---
+import Layout from '../../layouts/Layout.astro';import {posts} from '../../data/posts.js';
+export function getStaticPaths(){return posts.map(post=>({params:{slug:post.slug},props:{post}}))}
+const {post}=Astro.props;
+---
+<Layout title={`${post.title} · Ados Sweet`}><article class="wrap max-w-3xl py-12 article"><a href="/blog/" class="text-sm underline">← Volver al blog</a><p class="eyebrow mt-8">Ideas para disfrutar</p><h1 class="mt-5">{post.title}</h1><p class="text-xl mt-7">{post.description}</p><p>{post.p1}</p><p>{post.p2}</p><a href="/tienda/" class="btn mt-6">Descubre nuestros sabores ↗</a></article></Layout>
