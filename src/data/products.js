@@ -1,3 +1,4 @@
+// Catálogo de prueba: reemplazar precios y presentaciones antes de vender.
 
 export const products = [
     {
@@ -8,7 +9,7 @@ export const products = [
         price: 24,
         category: "Granolas",
         brand: "Ados Sweet",
-        image: "/images/product.jpeg",
+        image: "/images/ados-sweet.png",
         position: "14% 65%",
         featured: true,
     },
@@ -20,7 +21,7 @@ export const products = [
         price: 26,
         category: "Granolas",
         brand: "Ados Sweet",
-        image: "/images/product.jpeg",
+        image: "/images/ados-sweet.png",
         position: "86% 65%",
         featured: false,
     },
@@ -32,7 +33,7 @@ export const products = [
         price: 12,
         category: "Helados",
         brand: "Ados Sweet",
-        image: "/images/product.jpeg",
+        image: "/images/ados-sweet.png",
         position: "36% 49%",
         featured: false,
     },
@@ -44,7 +45,7 @@ export const products = [
         price: 12,
         category: "Helados",
         brand: "Ados Sweet",
-        image: "/images/product.jpeg",
+        image: "/images/ados-sweet.png",
         position: "50% 49%",
         featured: false,
     },
@@ -56,7 +57,7 @@ export const products = [
         price: 20,
         category: "Untables",
         brand: "Ados Sweet",
-        image: "/images/product.jpeg",
+        image: "/images/ados-sweet.png",
         position: "38% 78%",
         featured: false,
     },
@@ -68,8 +69,23 @@ export const products = [
         price: 22,
         category: "Untables",
         brand: "Ados Sweet",
-        image: "/images/product.jpeg",
+        image: "/images/ados-sweet.png",
         position: "62% 78%",
         featured: false,
+    },
+    {
+        id: "helado-arandanos", name: "Una pausa violeta", description: "Helado de arándanos",
+        size: "250 ml", price: 14, category: "Helados", brand: "Ados Sweet",
+        image: "/images/ados-sweet.png", position: "66% 49%", featured: false,
+    },
+    {
+        id: "pina", name: "Sol en un frasco", description: "Dulce de piña",
+        size: "275 g", price: 18, category: "Untables", brand: "Ados Sweet",
+        image: "/images/ados-sweet.png", position: "26% 79%", featured: false,
+    },
+    {
+        id: "chocorela", name: "Chocorela", description: "Crema de maní y cacao",
+        size: "280 g", price: 25, category: "Untables", brand: "Ados Sweet",
+        image: "/images/ados-sweet.png", position: "76% 79%", featured: true,
     },
 ];

@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
-const { title = "Ados Sweet · Placer que también te cuida" } = Astro.props;
+import Cart from "../components/Cart.astro";
+const { title = "Ados Sweet · Placer que también te cuida", description = "Descubre Ados Sweet: granolas, helados y untables artesanales. Ingredientes reales, momentos para disfrutar." } = Astro.props;
 const links = [
     ["/", "Inicio"],
     ["/nosotros/", "Nosotros"],
@@ -19,7 +20,7 @@ const links = [
         />
         <meta
             name="description"
-            content="Descubre Ados Sweet: granolas, helados y untables artesanales. Ingredientes reales, momentos para disfrutar."
+            content={description}
         /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css" integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg==" crossorigin="anonymous" referrerpolicy="no-referrer"><title>{title}</title></head
     ><body>
         <a href="#contenido" class="sr-only focus:not-sr-only"
@@ -39,7 +40,7 @@ const links = [
                         <a
                             class:list={[
                                 "py-2",
-                                { "nav-active": Astro.url.pathname === url },
+                                { "nav-active": (url === "/" ? Astro.url.pathname === "/" : Astro.url.pathname.startsWith(url.slice(0, -1))) },
                             ]}
                             href={url}
                         >
@@ -262,126 +263,6 @@ const links = [
                 <p>Lima, Perú</p>
             </div>
         </footer>
-        <dialog id="cart-dialog" aria-labelledby="cart-title">
-            <div class="flex justify-between items-center mb-4">
-                <h2 id="cart-title" class="text-3xl">Tu carrito</h2><button
-                    id="cart-close"
-                    aria-label="Cerrar carrito"
-                    class="text-3xl">×</button
-                >
-            </div><div id="cart-items"></div><div
-                class="flex justify-between text-lg font-bold mt-6"
-            >
-                <span>Subtotal</span><span id="cart-total">S/ 0.00</span>
-            </div><p class="text-sm mt-3">
-                Precios referenciales. Envío no incluido. Esta tienda todavía no
-                recibe pagos ni pedidos.
-            </p><button id="cart-clear" class="underline mt-4 text-sm"
-                >Vaciar carrito</button
-            >
-        </dialog><div
-            id="toast"
-            role="status"
-            class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-forest text-white px-6 py-3 rounded-full shadow-xl z-50"
-            hidden
-        >
-        </div>
-        <script>
-            import { products } from "../data/products.js";
-            const key = "ados-sweet-cart-v1";
-            let cart = {};
-            try {
-                const saved = JSON.parse(localStorage.getItem(key) || "{}");
-                for (const p of products) {
-                    const q = saved?.[p.id];
-                    if (Number.isInteger(q) && q > 0 && q <= 99) cart[p.id] = q;
-                }
-            } catch {}
-            const dialog = document.querySelector("#cart-dialog");
-            const money = (n) =>
-                new Intl.NumberFormat("es-PE", {
-                    style: "currency",
-                    currency: "PEN",
-                }).format(n);
-            function render() {
-                let total = 0,
-                    count = 0;
-                const container = document.querySelector("#cart-items");
-                container.replaceChildren();
-                for (const p of products) {
-                    const q = cart[p.id] || 0;
-                    if (!q) continue;
-                    total += q * p.price;
-                    count += q;
-                    const row = document.createElement("div");
-                    row.className = "cart-row";
-                    row.innerHTML = `<div><strong>${p.name}</strong><div class="text-sm">${p.size} · ${money(p.price)}</div></div><div class="flex items-center gap-3"><button class="qty" data-id="${p.id}" data-change="-1" aria-label="Quitar una unidad de ${p.name}">−</button><span>${q}</span><button class="qty" data-id="${p.id}" data-change="1" aria-label="Agregar una unidad de ${p.name}" ${q >= 99 ? "disabled" : ""}>+</button></div><button class="text-sm underline text-left" data-remove="${p.id}">Eliminar</button>`;
-                    container.append(row);
-                }
-                if (!count)
-                    container.innerHTML =
-                        '<p class="py-8">Tu carrito está esperando algo rico. Explora la tienda y elige tu favorito.</p>';
-                document.querySelector("#cart-count").textContent =
-                    String(count);
-                document.querySelector("#cart-total").textContent =
-                    money(total);
-                try {
-                    localStorage.setItem(key, JSON.stringify(cart));
-                } catch {}
-            }
-            let timer;
-            document.addEventListener("click", (e) => {
-                const el = e.target.closest("button");
-                if (!el) return;
-                if (el.dataset.add) {
-                    const id = el.dataset.add;
-                    cart[id] = Math.min(99, (cart[id] || 0) + 1);
-                    render();
-                    const toast = document.querySelector("#toast");
-                    toast.textContent = "Producto agregado a tu carrito";
-                    toast.hidden = false;
-                    clearTimeout(timer);
-                    timer = setTimeout(() => (toast.hidden = true), 2400);
-                }
-                if (el.dataset.change) {
-                    const id = el.dataset.id;
-                    cart[id] = Math.max(
-                        0,
-                        Math.min(
-                            99,
-                            (cart[id] || 0) + Number(el.dataset.change),
-                        ),
-                    );
-                    render();
-                }
-                if (el.dataset.remove) {
-                    delete cart[el.dataset.remove];
-                    render();
-                }
-            });
-            document
-                .querySelector("#cart-open")
-                .addEventListener("click", () => dialog.showModal());
-            document
-                .querySelector("#cart-close")
-                .addEventListener("click", () => dialog.close());
-            document
-                .querySelector("#cart-clear")
-                .addEventListener("click", () => {
-                    cart = {};
-                    render();
-                });
-            document
-                .querySelector("#menu-toggle")
-                .addEventListener("click", (e) => {
-                    const nav = document.querySelector("#mobile-nav");
-                    nav.hidden = !nav.hidden;
-                    e.currentTarget.setAttribute(
-                        "aria-expanded",
-                        String(!nav.hidden),
-                    );
-                });
-            render();
-        </script></body
-    >
+        <Cart />
+    </body>
 </html>

@@ -1,38 +1,30 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from '../layouts/Layout.astro';
+import { posts } from '../data/posts.js';
+const [featured, ...others] = posts;
 ---
-
-<Layout title="Blog · Historias de Ados Sweet">
-    <section class="wrap py-12">
-        <p class="eyebrow mb-5">Nuestro blog</p>
-
-        <h1>
-            Un espacio para<br />
-            compartir <em class="text-coral">lo que hacemos.</em>
-        </h1>
-
-        <div
-            class="mt-10 max-w-3xl rounded-3xl border border-forest/15 bg-white/60 p-8 md:p-12"
-        >
-            <h2 class="text-3xl">
-                Estamos preparando nuestras primeras publicaciones.
-            </h2>
-
-            <p class="mt-5 text-stone-600">
-                Mientras tanto, puedes conocer la historia de Ados Sweet,
-                nuestra filosofía y las propuestas que nacen de nuestra casa.
-            </p>
-
-            <div class="mt-7 flex flex-wrap gap-4">
-                <a href="/nosotros/" class="btn"> Conoce nuestra historia ↗ </a>
-
-                <a
-                    href="/contactos/"
-                    class="inline-flex items-center rounded-full border border-forest/30 px-6 py-3 text-sm"
-                >
-                    Encuéntranos en redes
-                </a>
-            </div>
+<Layout title="Blog · Historias de Ados Sweet" description="Ideas para disfrutar granolas, helados y untables: recetas sencillas y pequeños momentos para compartir.">
+    <section class="wrap py-10">
+        <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div><p class="eyebrow mb-4">El cuaderno de nuestra casa</p><h1>Historias para<br /><em class="text-coral">saborear despacio.</em></h1></div>
+            <p class="max-w-sm text-stone-600">Ideas sencillas, combinaciones favoritas y pequeños momentos que saben mejor cuando se comparten.</p>
         </div>
+        <a href={`/blog/${featured.slug}/`} class="group mt-10 grid overflow-hidden rounded-3xl border border-forest/10 bg-[#edf1e6] md:grid-cols-2">
+            <img src={featured.image} alt={featured.imageAlt} width="960" height="640" class="h-full max-h-[440px] w-full object-cover" fetchpriority="high" />
+            <div class="flex flex-col justify-center p-7 md:p-10">
+                <p class="eyebrow !text-[10px]">{featured.category} <span aria-hidden="true">·</span> {featured.readingTime} de lectura</p>
+                <h2 class="mt-5 text-3xl md:text-4xl">{featured.title}</h2>
+                <p class="mt-5 text-stone-600">{featured.description}</p>
+                <span class="mt-7 self-start border-b border-forest pb-1 text-sm">Leer la historia <span aria-hidden="true">↗</span></span>
+            </div>
+        </a>
+        <div class="mt-12 flex items-center justify-between border-b border-forest/15 pb-5"><h2 class="text-3xl">Más ideas para disfrutar</h2><span class="text-xs text-stone-500">El gusto de lo simple</span></div>
+        <div class="mt-6 grid gap-6 md:grid-cols-2">
+            {others.map(post => <a href={`/blog/${post.slug}/`} class="group overflow-hidden rounded-3xl border border-forest/10 bg-white">
+                <div class="overflow-hidden"><img src={post.image} alt={post.imageAlt} width="768" height="432" loading="lazy" class="aspect-[16/9] w-full object-cover transition-transform duration-500 group-hover:scale-105" style={`object-position:${post.position}`} /></div>
+                <div class="p-6 sm:p-8"><p class="eyebrow !text-[10px]">{post.category} · {post.readingTime} de lectura</p><h2 class="mt-4 text-3xl">{post.title}</h2><p class="mt-4 text-stone-600">{post.description}</p><span class="mt-6 inline-block border-b border-forest pb-1 text-sm">Leer la historia ↗</span></div>
+            </a>)}
+        </div>
+        <div class="mt-12 flex flex-col items-start justify-between gap-6 rounded-3xl bg-[#f9e8df] p-8 sm:flex-row sm:items-center"><div><p class="eyebrow !text-[10px] mb-3">De la idea a tu mesa</p><h2 class="text-3xl">¿Ya se te antojó algo?</h2></div><a href="/tienda/" class="btn">Encuentra tu favorito ↗</a></div>
     </section>
 </Layout>

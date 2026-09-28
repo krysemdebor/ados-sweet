@@ -52,9 +52,14 @@ const brands = [...new Set(catalog.map((item) => item.brand).filter(Boolean))];
 ---
 
 <Layout title="Tienda · Ados Sweet">
-    <main>
+    <section class="wrap grid gap-6 py-10 md:grid-cols-[1fr_auto] md:items-end">
+        <div><p class="eyebrow mb-4">De nuestra casa a la tuya</p><h1>Elige tu próximo<br /><em class="text-coral">antojo favorito.</em></h1><p class="mt-5 max-w-xl text-stone-600">Granolas, helados y untables para disfrutar a tu manera. Arma tu carrito y conversemos por WhatsApp para coordinar tu pedido.</p></div>
+        <div class="rounded-2xl border border-forest/15 bg-[#edf1e6] p-5 text-sm"><p><strong>01</strong> Elige tus favoritos</p><p><strong>02</strong> Revisa tu carrito</p><p><strong>03</strong> Pide por WhatsApp ↗</p></div>
+    </section>
         <section id="catalogo" class="wrap scroll-mt-12 py-6" data-shop-root>
             <ShopFilters categories={categories} brands={brands} />
+            <p class="mt-4 text-xs text-stone-500">Catálogo de prueba: productos, presentaciones y precios referenciales. Confirma los detalles al realizar tu pedido.</p>
+            <noscript><p class="mt-4">Activa JavaScript para filtrar productos y armar tu carrito. También puedes <a href="/contactos/" class="underline">contactarnos</a>.</p></noscript>
 
             <div class="flex flex-wrap items-center justify-between gap-4 my-6">
                 <p
@@ -76,7 +81,7 @@ const brands = [...new Set(catalog.map((item) => item.brand).filter(Boolean))];
 
             <div
                 id="shop-grid"
-                class="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-3"
+                class="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-x-6 lg:grid-cols-3"
             >
                 {
                     catalog.map((item) => (
@@ -119,7 +124,7 @@ const brands = [...new Set(catalog.map((item) => item.brand).filter(Boolean))];
                 </button>
             </div>
         </section>
-    </main>
+
 </Layout>
 
 <script>

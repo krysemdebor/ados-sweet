@@ -1,0 +1,99 @@
+---
+import { store } from "../data/store.js";
+import { normalizePhone } from "../lib/cart.js";
+const phone = normalizePhone(store.whatsappNumber);
+---
+
+<dialog id="cart-dialog" aria-labelledby="cart-title" data-whatsapp={phone}>
+    <div
+        class="flex items-center justify-between gap-4 border-b border-forest/15 pb-4"
+    >
+        <div>
+            <p class="eyebrow !text-[10px] text-forest/60">
+                Un antojo a tu medida
+            </p><h2 id="cart-title" class="mt-1 text-3xl">Tu carrito</h2>
+        </div>
+        <button
+            type="button"
+            id="cart-close"
+            aria-label="Cerrar carrito"
+            class="flex h-11 w-11 items-center justify-center rounded-full border border-forest/20 text-2xl"
+            >×</button
+        >
+    </div>
+    <div id="cart-items"></div>
+    <div id="cart-summary" hidden>
+        <div class="mt-5 flex justify-between text-lg font-bold">
+            <span>Subtotal</span><span id="cart-total">S/ 0.00</span>
+        </div>
+        <p class="mt-2 text-xs text-stone-600">
+            Precios de prueba. Envío no incluido. Confirmaremos disponibilidad,
+            precio final y entrega por WhatsApp.
+        </p>
+        <form id="order-form" class="mt-5 space-y-3">
+            <label class="block text-sm" for="order-name"
+                >Tu nombre <span class="text-stone-500">(opcional)</span></label
+            >
+            <input
+                id="order-name"
+                name="name"
+                autocomplete="given-name"
+                maxlength="80"
+                placeholder="¿Cómo te llamas?"
+            />
+            <label class="block text-sm" for="order-notes"
+                >Notas del pedido <span class="text-stone-500">(opcional)</span
+                ></label
+            >
+            <textarea
+                id="order-notes"
+                name="notes"
+                rows="2"
+                maxlength="500"
+                placeholder="Distrito de entrega, ocasión o alguna consulta"
+            ></textarea>
+            <button
+                id="cart-checkout"
+                type="submit"
+                class="btn w-full"
+                disabled={!phone}
+                >Pedir por WhatsApp <span aria-hidden="true">↗</span></button
+            >
+            {
+                !phone && (
+                    <p class="text-sm text-stone-600">
+                        Los pedidos por WhatsApp estarán disponibles pronto.
+                        Puedes{" "}
+                        <a class="underline" href="/contactos/">
+                            contactarnos aquí
+                        </a>
+                        .
+                    </p>
+                )
+            }
+            <p id="order-status" class="text-xs text-stone-600" role="status">
+                Se abrirá WhatsApp con tu pedido listo para enviar. El pedido se
+                confirma al conversar con nosotros.
+            </p>
+        </form>
+        <button type="button" id="cart-clear" class="mt-4 text-sm underline"
+            >Vaciar carrito</button
+        >
+    </div>
+    <button
+        type="button"
+        id="cart-continue"
+        class="mt-5 w-full rounded-full border border-forest/25 px-4 py-3 text-sm"
+        >Seguir explorando</button
+    >
+</dialog>
+<div
+    id="toast"
+    role="status"
+    class="fixed bottom-6 left-1/2 z-50 w-max max-w-[90vw] -translate-x-1/2 rounded-2xl bg-forest px-6 py-3 text-center text-sm text-white shadow-xl"
+    hidden
+>
+</div>
+<script>
+    import "../scripts/cart";
+</script>

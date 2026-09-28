@@ -1,1 +1,47 @@
-export const posts = [{"slug": "desayuno-con-granola", "title": "Un desayuno, tres formas de disfrutar la granola", "description": "Ideas para empezar el día con sabor.", "p1": "Sirve tu granola con yogur natural y fruta de temporada. Agrega la granola justo antes de comer para conservar su textura crujiente.", "p2": "Para una segunda opción, prepara un bowl de fruta picada y añade una cucharada de crema de maní. Termina con granola. También puedes servirla con leche o tu bebida vegetal favorita."}, {"slug": "pausa-con-helado", "title": "Haz de tu pausa un pequeño ritual", "description": "Un momento para bajar el ritmo y saborear.", "p1": "Elige tu sabor favorito, sírvelo en un bowl y disfruta sin prisas. Una pausa sencilla puede convertirse en uno de tus momentos favoritos del día.", "p2": "Prueba acompañar el helado con fruta fresca o un poco de granola al momento de servir. Combina texturas y descubre tu mezcla favorita."}, {"slug": "untables-para-compartir", "title": "Una mesa sencilla para compartir", "description": "Fruta, tostadas y algo rico para untar.", "p1": "No necesitas una mesa complicada: prepara tostadas, corta fruta y sirve tus untables favoritos en pequeños recipientes.", "p2": "Combina una tostada con crema de maní y rodajas de plátano, o añade un dulce de fruta a un bowl de yogur. Sirve porciones pequeñas para probar distintas combinaciones."}];
+export const posts = [
+    {
+        slug: 'desayuno-con-granola',
+        title: 'Un desayuno, tres formas de disfrutar la granola',
+        description: 'Un bowl, una tostada o un vaso para llevar: ideas sencillas para darle un toque crujiente a tus mañanas.',
+        category: 'En la cocina', readingTime: '3 min', number: '01',
+        image: '/images/product.jpeg', imageAlt: 'Frascos de granola sobre una mesa', position: 'center',
+        intro: 'Hay mañanas para sentarse a la mesa y otras que empiezan a toda velocidad. En ambas, una combinación sencilla puede hacer del desayuno un momento especial. Estas tres ideas tienen algo en común: la granola se agrega al final para que conserve su textura.',
+        sections: [
+            { title: '1. El bowl de todos los días', text: 'Sirve yogur natural en un bowl, agrega plátano en rodajas o la fruta que tengas en casa y termina con un puñado de granola. Puedes probar con fresas, mango o arándanos. Juega con la proporción de fruta y yogur hasta encontrar la combinación que más te guste.', tip: 'Si preparas el desayuno la noche anterior, guarda la granola en un recipiente aparte y añádela justo antes de comer.' },
+            { title: '2. Una tostada con otra textura', text: 'Tuesta una rebanada de pan, extiende un poco de crema de maní y coloca rodajas finas de plátano. Desmenuza una pequeña cantidad de granola por encima. El contraste entre el pan tibio, la crema y el toque crujiente transforma una tostada sencilla.', tip: '¿Prefieres un sabor frutal? Prueba tu untable favorito en lugar de la crema de maní.' },
+            { title: '3. Capas para llevar', text: 'En un frasco limpio con tapa, alterna capas de yogur y fruta picada. Lleva la granola por separado y mezcla cuando vayas a desayunar. Mantén refrigerados el yogur y la fruta hasta consumirlos; si sales de casa, usa una bolsa térmica adecuada.', tip: 'No necesitas una receta exacta: empieza con tus ingredientes favoritos y ajusta las cantidades a tu gusto.' },
+        ],
+        closing: 'El mejor desayuno es el que disfrutas preparar y comer. Cambia una fruta, prueba otra granola y haz tuya cada combinación.',
+        productIds: ['vitaliza', 'chocovital', 'mani'],
+    },
+    {
+        slug: 'pausa-con-helado',
+        title: 'Haz de tu pausa un pequeño ritual',
+        description: 'Fruta, algo crujiente y tu helado favorito. A veces, lo más rico está en los detalles pequeños.',
+        category: 'Pequeños momentos', readingTime: '3 min', number: '02',
+        image: '/images/ados-sweet.png', imageAlt: 'Helados y productos de Ados Sweet', position: 'center',
+        intro: 'No hace falta esperar una celebración para servir algo rico. Un helado puede ser la excusa para parar unos minutos, dejar el teléfono a un lado y disfrutar una combinación preparada a tu manera.',
+        sections: [
+            { title: 'Empieza por un sabor', text: 'Elige el helado que más te provoque: fresa para una combinación frutal, mango y maracuyá para un toque tropical o arándanos para variar. Sírvelo en un bowl pequeño y guarda el resto en el congelador siguiendo las indicaciones del envase.' },
+            { title: 'Suma un contraste', text: 'Agrega fruta fresca cortada y un poco de granola justo antes de servir. También puedes acompañarlo con una pequeña cucharada de tu untable favorito. Empieza con pocos ingredientes para que el sabor del helado siga siendo el protagonista.', tip: 'Prueba fresa con plátano, mango con trocitos de fruta o arándanos con granola de chocolate.' },
+            { title: 'Una pausa para compartir', text: 'Si tienes compañía, coloca los complementos en recipientes pequeños y deja que cada persona prepare su bowl. Sirve el helado al final para disfrutarlo antes de que se derrita. Es una forma sencilla de cerrar una comida o acompañar una conversación.' },
+        ],
+        closing: 'No hay una mezcla perfecta para todos. Encuentra tu favorita, cambia un ingrediente la próxima vez y disfruta el momento sin apuro.',
+        productIds: ['fresa', 'mango', 'helado-arandanos'],
+    },
+    {
+        slug: 'untables-para-compartir',
+        title: 'Una mesa sencilla para compartir',
+        description: 'Tostadas, fruta y un par de frascos: así empieza una mesa que invita a quedarse un rato más.',
+        category: 'Para compartir', readingTime: '3 min', number: '03',
+        image: '/images/ados-sweet.png', imageAlt: 'Selección de granolas, helados y untables Ados Sweet', position: 'center 75%',
+        intro: 'Una reunión en casa no necesita una lista interminable de preparaciones. Con algunos ingredientes y distintas texturas puedes armar una mesa donde cada persona encuentre algo que le guste.',
+        sections: [
+            { title: 'Elige una base sencilla', text: 'Corta pan en porciones pequeñas y tuesta una parte. Añade fruta lavada y picada en un plato aparte. Tener opciones blandas y crujientes hace que la mesa sea variada sin tener que preparar muchas recetas.' },
+            { title: 'Deja que los sabores se encuentren', text: 'Sirve crema de maní, un dulce de fruta y una opción con cacao en recipientes separados. Una tostada con maní y plátano, otra con dulce de piña o un poco de Chocorela pueden ser el comienzo. Coloca una cucharita en cada recipiente para mantener los sabores separados.', tip: 'Antes de servir, consulta si alguien tiene alergias y revisa los ingredientes del envase. Mantén separados los utensilios que lo requieran.' },
+            { title: 'Sirve de a pocos', text: 'Empieza con pequeñas cantidades y repón cuando haga falta. Conserva el resto de cada producto según su etiqueta y evita dejar fuera de refrigeración los ingredientes que la necesiten. Así podrás disfrutar de la conversación y mantener la mesa ordenada.' },
+        ],
+        closing: 'La idea no es llenar la mesa, sino dejar espacio para probar, conversar y compartir. Un detalle preparado con cariño puede ser suficiente.',
+        productIds: ['arandanos', 'mani', 'chocorela'],
+    },
+];

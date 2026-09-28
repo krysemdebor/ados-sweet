@@ -1,6 +1,25 @@
 ---
-import Layout from '../../layouts/Layout.astro';import {posts} from '../../data/posts.js';
-export function getStaticPaths(){return posts.map(post=>({params:{slug:post.slug},props:{post}}))}
-const {post}=Astro.props;
+import Layout from '../../layouts/Layout.astro';
+import Product from '../../components/Product.astro';
+import { posts } from '../../data/posts.js';
+import { products } from '../../data/products.js';
+export function getStaticPaths() {
+    return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+}
+const { post } = Astro.props;
+const related = posts.filter(item => item.slug !== post.slug);
+const suggestions = post.productIds.map(id => products.find(product => product.id === id)).filter(Boolean);
 ---
-<Layout title={`${post.title} · Ados Sweet`}><article class="wrap max-w-3xl py-12 article"><a href="/blog/" class="text-sm underline">← Volver al blog</a><p class="eyebrow mt-8">Ideas para disfrutar</p><h1 class="mt-5">{post.title}</h1><p class="text-xl mt-7">{post.description}</p><p>{post.p1}</p><p>{post.p2}</p><a href="/tienda/" class="btn mt-6">Descubre nuestros sabores ↗</a></article></Layout>
+<Layout title={`${post.title} · Ados Sweet`} description={post.description}>
+    <article class="wrap py-8">
+        <nav aria-label="Ruta de navegación" class="text-sm"><a href="/blog/" class="underline">← Volver al blog</a></nav>
+        <header class="mx-auto max-w-3xl py-9 text-center"><p class="eyebrow mb-5">{post.category} · {post.readingTime} de lectura</p><h1 class="!text-[clamp(2.3rem,4.5vw,4rem)]">{post.title}</h1><p class="mt-6 text-lg text-stone-600">{post.description}</p><p class="mt-5 text-xs text-forest/65">Por Ados Sweet</p></header>
+        <img src={post.image} alt={post.imageAlt} width="1200" height="675" fetchpriority="high" class="max-h-[480px] w-full rounded-3xl object-cover" style={`object-position:${post.position}`} />
+        <div class="article mx-auto max-w-2xl py-8 text-stone-700"><p class="text-lg">{post.intro}</p>
+            {post.sections.map(section => <section><h2 class="text-forest">{section.title}</h2><p>{section.text}</p>{section.tip && <aside class="my-6 rounded-2xl border-l-4 border-coral bg-[#edf1e6] p-5 text-sm"><strong class="text-forest">Un pequeño tip</strong><p class="!mb-0">{section.tip}</p></aside>}</section>)}
+            <p class="border-t border-forest/15 pt-6">{post.closing}</p>
+        </div>
+    </article>
+    <section class="wrap border-t border-forest/15 pt-10"><p class="eyebrow mb-3">Lleva la idea a tu mesa</p><div class="mb-6 flex flex-wrap items-end justify-between gap-4"><h2 class="text-3xl">Para probar estas combinaciones</h2><a href="/tienda/" class="text-sm underline">Ver toda la tienda ↗</a></div><p class="mb-5 text-xs text-stone-500">Productos y precios de prueba. Confirma los detalles por WhatsApp.</p><div class="grid grid-cols-2 gap-4 lg:grid-cols-3">{suggestions.map(product => <Product product={product} />)}</div></section>
+    <section class="wrap mt-12"><h2 class="mb-6 text-3xl">Sigue leyendo</h2><div class="grid gap-4 md:grid-cols-2">{related.map(item => <a href={`/blog/${item.slug}/`} class="rounded-2xl border border-forest/15 p-6 transition-colors hover:bg-[#edf1e6]"><p class="eyebrow !text-[10px] mb-3">{item.category}</p><h3 class="text-2xl">{item.title} <span aria-hidden="true">↗</span></h3></a>)}</div></section>
+</Layout>
