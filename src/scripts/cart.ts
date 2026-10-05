@@ -87,7 +87,7 @@ document.addEventListener('click', (event) => {
     const button = event.target.closest<HTMLButtonElement>('button');
     if (!button) return;
     const id = button.dataset.add || button.dataset.id;
-    if (!id || !products.some(product => product.id === id)) return;
+    if (!id || !products.some(product => product.id === id && product.available !== false)) return;
     if (button.dataset.add) {
         if ((cart[id] || 0) >= MAX_QUANTITY) { notify('Puedes agregar hasta 99 unidades por producto.'); return; }
         cart[id] = (cart[id] || 0) + 1;

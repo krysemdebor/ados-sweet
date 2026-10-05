@@ -11,8 +11,8 @@ test('saved carts ignore unknown products and invalid quantities', () => {
 test('summary calculates units and totals from catalog prices', () => {
     const result = cartSummary({ vitaliza: 2, fresa: 3 });
     assert.equal(result.count, 5);
-    assert.equal(result.total, 84);
-    assert.equal(result.items[0].lineCents, 4800);
+    assert.equal(result.total, 83);
+    assert.equal(result.items[0].lineCents, 4400);
     assert.equal(cartSummary({}).total, 0);
 });
 test('WhatsApp requires recipient and a nonempty cart', () => {
@@ -29,7 +29,7 @@ test('order URL preserves products, quantities, totals, accents and customer not
     const message = url.searchParams.get('text');
     assert.match(message, /Vitaliza \(250 g\)/);
     assert.match(message, /2 ×/);
-    assert.match(message, /84[.,]00/);
+    assert.match(message, /83[.,]00/);
     assert.match(message, /José & María/);
     assert.match(message, /Recojo #2\n¿Mañana\?/);
     assert.match(message, /Envío no incluido/);
@@ -43,4 +43,18 @@ test('catalog and article references are valid and unique', () => {
         assert.ok(post.sections.length >= 3);
         assert.ok(post.productIds.every(id => products.some(p => p.id === id)));
     }
+});
+
+// Casos comerciales del catálogo de Canva.
+test('ice cream sizes remain distinct and use the published prices', () => {
+    const result = cartSummary({ fresa: 1, 'fresa-500': 2, pistacho: 1 });
+    assert.equal(result.total, 76);
+    assert.equal(result.items.length, 3);
+    assert.match(buildOrderMessage({ 'fresa-500': 1 }), /Helado de fresa \(500 ml\)/);
+    assert.deepEqual(sanitizeCart({ 'pistacho-500': 1 }), {});
+});
+test('unavailable items cannot be ordered and alcohol keeps its label', () => {
+    assert.deepEqual(sanitizeCart({ almendrela: 1 }), {});
+    assert.equal(buildOrderMessage({ almendrela: 2 }), '');
+    assert.match(buildOrderMessage({ 'ron-pasas': 1 }), /Solo para adultos/);
 });

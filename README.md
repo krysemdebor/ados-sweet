@@ -26,7 +26,7 @@ El cliente debe pulsar **Enviar** en WhatsApp. Abrir el enlace no confirma ni re
 
 ## Dónde editar
 
-- Productos: `src/data/products.js`. Incluye nueve productos de prueba con precios referenciales; conserva los IDs si quieres mantener los carritos guardados.
+- Productos: `src/data/products.js`. Incluye 18 productos del catálogo de Canva y 26 presentaciones con sus precios e imágenes originales. `catalog` agrupa las fichas y `products` contiene las presentaciones para el carrito.
 - WhatsApp: `src/data/store.js` o `PUBLIC_WHATSAPP_NUMBER`.
 - Carrito: `src/components/Cart.astro`, `src/scripts/cart.ts` y `src/lib/cart.js`.
 - Tienda y filtros: `src/pages/tienda.astro`, `src/components/ShopFilters.astro`.
@@ -49,4 +49,4 @@ Prueba manual: agregar dos productos, variar cantidades, recargar, navegar al bl
 
 Sube `dist/` a un alojamiento estático compatible con `index.html` en cada ruta. Configura la variable de WhatsApp antes de compilar.
 
-Antes de usar el catálogo comercialmente, reemplaza o confirma productos, imágenes, presentaciones y precios de prueba. La disponibilidad, el envío y el pago se coordinan por WhatsApp; este proyecto no incluye inventario, pasarela de pago ni registro de pedidos en un servidor.
+Catálogo contrastado el 01/10/2026 con https://www.canva.com/design/DAGqz4WSmT4/1H4sLBye8f_ZXU_pGzJx5g/view. Almendrela figura sin stock; Pistacho solo tiene 250 ml; Ron con pasas conserva la indicación para adultos. Se utiliza una nueva clave de carrito para evitar arrastrar selecciones del catálogo de prueba. La disponibilidad, el envío y el pago se coordinan por WhatsApp; este proyecto no incluye inventario, pasarela de pago ni registro de pedidos en un servidor.

@@ -1,6 +1,6 @@
 import { products } from '../data/products.js';
 
-export const CART_KEY = 'ados-sweet-cart-v1';
+export const CART_KEY = 'ados-sweet-cart-v2';
 export const MAX_QUANTITY = 99;
 export const money = (value) => new Intl.NumberFormat('es-PE', {
     style: 'currency', currency: 'PEN',
@@ -10,6 +10,7 @@ export function sanitizeCart(value) {
     const cart = {};
     if (!value || typeof value !== 'object' || Array.isArray(value)) return cart;
     for (const product of products) {
+        if (product.available === false) continue;
         const quantity = value[product.id];
         if (Number.isInteger(quantity) && quantity > 0) {
             cart[product.id] = Math.min(MAX_QUANTITY, quantity);
@@ -40,7 +41,7 @@ export function buildOrderMessage(cart, details = {}) {
     const { items, total } = cartSummary(cart);
     if (!items.length) return '';
     const lines = items.map((item, index) =>
-        `${index + 1}. ${item.name} (${item.size})\n   ${item.quantity} × ${money(item.price)} = ${money(item.lineCents / 100)}`);
+        `${index + 1}. ${item.name} (${item.size})${item.adultsOnly ? ' · Solo para adultos' : ''}\n   ${item.quantity} × ${money(item.price)} = ${money(item.lineCents / 100)}`);
     const name = String(details.name || '').trim().slice(0, 80);
     const notes = String(details.notes || '').trim().slice(0, 500);
     return [
